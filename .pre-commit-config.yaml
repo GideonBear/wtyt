@@ -2,6 +2,8 @@ minimum_pre_commit_version: 4.2.0
 
 ci:
   autoupdate_commit_msg: "chore(pre-commit): autoupdate"
+  skip:
+    - pytest
 
 repos:
   # Multi
@@ -141,3 +143,14 @@ repos:
     rev: v2026.1.0
     hooks:
       - id: check-eol-cached
+
+  # Pytest
+
+  - repo: local
+    hooks:
+      - id: pytest
+        name: pytest
+        entry: python -m pytest
+        language: system
+        pass_filenames: false
+        always_run: true

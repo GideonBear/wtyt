@@ -30,6 +30,11 @@ urls.homepage = "https://github.com/GideonBear/wtyt"
 scripts.wtyt-add-comic = "wtyt.add_comic:main"
 scripts.wtyt-get-rss = "wtyt.get_rss:main"
 
+[dependency-groups]
+dev = [
+    "pytest>=9.0.1",
+]
+
 [tool.ruff]
 format.preview = true
 format.nested-string-quote-style = "preferred"
