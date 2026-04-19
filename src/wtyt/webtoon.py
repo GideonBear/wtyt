@@ -54,6 +54,7 @@ class TitleInfo(TypedDict):
 
 @dataclass
 class Comic:
+    no: ComicId
     _data: TitleInfo
 
     @classmethod
@@ -64,7 +65,7 @@ class Comic:
             language="en",
             platform="APP_ANDROID",
         )
-        return cls(data["titleInfo"])
+        return cls(no, data["titleInfo"])
 
     @property
     def title(self) -> str:
@@ -93,4 +94,6 @@ class Comic:
     def rss(self) -> str:
         a, b = self.link.rsplit("/", maxsplit=1)
         _, b = b.split("?")
+        if isinstance(self.no, Canvas):
+            a = a.replace("canvas", "challenge", count=1)
         return f"{a}/rss?{b}"
