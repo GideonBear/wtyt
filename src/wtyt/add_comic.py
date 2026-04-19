@@ -20,32 +20,33 @@ CATBOX_HASH = (
 
 class Args(argparse.Namespace):
     link: str
-    status: Status
+    # status: Status
 
 
 def parse_args() -> Args:
     parser = ArgumentParser()
     parser.add_argument("link", type=str)
-    group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument(
-        "-c", "--completed", action="store_const", dest="status", const=Status.Completed
-    )
-    group.add_argument(
-        "-i",
-        "--in-progress",
-        action="store_const",
-        dest="status",
-        const=Status.InProgress,
-    )
-    group.add_argument(
-        "-p", "--planning", action="store_const", dest="status", const=Status.Planning
-    )
-    group.add_argument(
-        "-a", "--paused", action="store_const", dest="status", const=Status.Paused
-    )
-    group.add_argument(
-        "-d", "--dropped", action="store_const", dest="status", const=Status.Dropped
-    )
+    # group = parser.add_mutually_exclusive_group(required=True)
+    # group.add_argument(
+    #     "-c", "--completed", action="store_const", dest="status",
+    #     const=Status.Completed
+    # )
+    # group.add_argument(
+    #     "-i",
+    #     "--in-progress",
+    #     action="store_const",
+    #     dest="status",
+    #     const=Status.InProgress,
+    # )
+    # group.add_argument(
+    #     "-p", "--planning", action="store_const", dest="status", const=Status.Planning
+    # )
+    # group.add_argument(
+    #     "-a", "--paused", action="store_const", dest="status", const=Status.Paused
+    # )
+    # group.add_argument(
+    #     "-d", "--dropped", action="store_const", dest="status", const=Status.Dropped
+    # )
     return parser.parse_args(namespace=Args())
 
 
@@ -58,7 +59,7 @@ def main() -> int:
         media_type=MediaType.Comic,
         title=comic.title,
         image_url=comic.store_thumb(CATBOX_HASH),
-        status=args.status,
+        status=Status.Planning,
         notes=notes,
     )
 
