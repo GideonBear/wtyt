@@ -30,6 +30,13 @@ class ComicId(ABC):
     @abstractmethod
     def method(self) -> WebtoonApiCall: ...
 
+    @classmethod
+    def from_link(cls, link: str) -> ComicId:
+        typ: type[ComicId] = (
+            Canvas if link.split("/", maxsplit=5)[4] == "canvas" else Original
+        )
+        return typ(int(link.rsplit("=", 1)[1]))
+
 
 class Original(ComicId):
     method = wtapi.titleInfo

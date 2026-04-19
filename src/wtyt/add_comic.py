@@ -5,7 +5,7 @@ import subprocess
 from argparse import ArgumentParser
 
 from wtyt import config, yamtrack
-from wtyt.webtoon import Canvas, Comic, ComicId, Original
+from wtyt.webtoon import Comic, ComicId
 from wtyt.yamtrack import MediaType, Status
 
 
@@ -52,11 +52,7 @@ def parse_args() -> Args:
 def main() -> int:
     args = parse_args()
 
-    typ: type[ComicId] = (
-        Canvas if args.link.split("/", maxsplit=5)[4] == "canvas" else Original
-    )
-    no = typ(int(args.link.rsplit("=", 1)[1]))
-    comic = Comic.get(no)
+    comic = Comic.get(ComicId.from_link(args.link))
     notes = f"link: {comic.link}\nrss: {comic.rss}"
     ytapi.create(
         media_type=MediaType.Comic,
