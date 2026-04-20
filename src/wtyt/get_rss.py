@@ -16,7 +16,9 @@ def main() -> int:
     urls = [
         x.parse_notes()["rss"]
         for x in ytapi.export()
-        if x.source == Source.Manual and x.media_type == MediaType.Comic
+        if x.source == Source.Manual
+        and x.media_type == MediaType.Comic
+        and "rss" in x.parse_notes()
     ]
     contents = json.dumps({"urls": urls})
 
