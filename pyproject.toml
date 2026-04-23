@@ -4,7 +4,7 @@ requires = [ "uv-build>=0.11,<0.12" ]
 
 [project]
 name = "wtyt"
-version = "0.1.0"
+version = "0.1.1"
 description = "Makeshift Webtoon integration for Yamtrack"
 readme = "README.md"
 license = "GPL-3.0-only"
