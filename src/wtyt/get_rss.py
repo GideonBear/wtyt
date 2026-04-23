@@ -7,7 +7,7 @@ import requests
 
 from wtyt import config, yamtrack
 from wtyt.notes import parse_notes
-from wtyt.yamtrack import MediaType, Source
+from wtyt.yamtrack import MediaType, Source, Status
 
 
 ytapi = yamtrack.Api(config.yamtrack_url)
@@ -19,6 +19,7 @@ def main() -> int:
         for x in ytapi.export()
         if x.source == Source.Manual
         and x.media_type == MediaType.Comic
+        and x.status == Status.Completed
         and (note_data := parse_notes(x.notes)) is not None
     ]
     contents = json.dumps({"urls": urls})
