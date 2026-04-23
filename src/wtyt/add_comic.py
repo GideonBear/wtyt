@@ -5,6 +5,7 @@ import subprocess
 from argparse import ArgumentParser
 
 from wtyt import config, yamtrack
+from wtyt.notes import make_notes
 from wtyt.webtoon import Comic, ComicId
 from wtyt.yamtrack import MediaType, Status
 
@@ -54,13 +55,12 @@ def main() -> int:
     args = parse_args()
 
     comic = Comic.get(ComicId.from_link(args.link))
-    notes = f"link: {comic.link}\nrss: {comic.rss}"
     ytapi.create(
         media_type=MediaType.Comic,
         title=comic.title,
         image_url=comic.store_thumb(CATBOX_HASH),
         status=Status.Planning,
-        notes=notes,
+        notes=make_notes({"link": comic.link, "rss": comic.rss}),
     )
 
     return 0

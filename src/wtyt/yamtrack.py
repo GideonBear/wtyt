@@ -165,14 +165,3 @@ class ExportRow:
             if progressed_at
             else None,
         )
-
-    def parse_notes(self) -> dict[str, str]:
-        data = {}
-        for line in self.notes.split("\n"):
-            if not line:
-                # Empty line, there may be normal notes after this
-                break
-            k, v = line.split(": ", maxsplit=1)
-            data[k] = v
-
-        return data

@@ -6,6 +6,7 @@ import subprocess
 import requests
 
 from wtyt import config, yamtrack
+from wtyt.notes import parse_notes
 from wtyt.yamtrack import MediaType, Source
 
 
@@ -14,11 +15,11 @@ ytapi = yamtrack.Api(config.yamtrack_url)
 
 def main() -> int:
     urls = [
-        x.parse_notes()["rss"]
+        note_data["rss"]
         for x in ytapi.export()
         if x.source == Source.Manual
         and x.media_type == MediaType.Comic
-        and "rss" in x.parse_notes()
+        and (note_data := parse_notes(x.notes)) is not None
     ]
     contents = json.dumps({"urls": urls})
 
