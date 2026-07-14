@@ -96,6 +96,9 @@ class Api:
             "end_date": "",
         }
         r = self.session.post(url, data=data)
+        if "added successfully" not in r.text:
+            msg = f"Possibly failed to add to yamtrack. Response:\n{r.text}"
+            raise Exception(msg)  # noqa: TRY002
         r.raise_for_status()
 
     def export(self) -> Iterator[ExportRow]:

@@ -84,6 +84,9 @@ class Comic:
         ) as r:
             r.raise_for_status()
             file_id = catboxAPI(catbox_hash).upload_file("img.jpeg", r.raw)
+            if " " in file_id or not file_id.endswith(".jpeg"):
+                msg = f"Catbox upload likely failed. Got ID: {file_id}"
+                raise Exception(msg)  # noqa: TRY002
         return f"https://files.catbox.moe/{file_id}"
 
     @property
