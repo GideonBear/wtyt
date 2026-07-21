@@ -10,7 +10,7 @@ from enum import Enum
 from functools import cache
 from typing import TYPE_CHECKING, Self
 
-# TODO(GideonBear): contribute upstream  # noqa: FIX002
+# TODO(GideonBear): contribute upstream  # ruff:ignore[line-contains-todo]
 import browser_cookie3  # type: ignore[import-not-found]
 from requests import Session
 
@@ -61,7 +61,7 @@ class Api:
             )
         )
 
-    @cache  # noqa: B019
+    @cache  # ruff:ignore[cached-instance-method]
     def get_csrf(self) -> str:
         url = urllib.parse.urljoin(self.url, "create")
         r = self.session.get(url)
@@ -69,7 +69,7 @@ class Api:
         match = re.search(r'name="csrfmiddlewaretoken" value="([a-zA-Z0-9]+)"', r.text)
         if match is None:
             msg = "Couldn't find csrf token, are you logged in?"
-            raise Exception(msg)  # noqa: TRY002
+            raise Exception(msg)  # ruff:ignore[raise-vanilla-class]
         return match.group(1)
 
     def create(
@@ -98,7 +98,7 @@ class Api:
         r = self.session.post(url, data=data)
         if "added successfully" not in r.text:
             msg = f"Possibly failed to add to yamtrack. Response:\n{r.text}"
-            raise Exception(msg)  # noqa: TRY002
+            raise Exception(msg)  # ruff:ignore[raise-vanilla-class]
         r.raise_for_status()
 
     def export(self) -> Iterator[ExportRow]:

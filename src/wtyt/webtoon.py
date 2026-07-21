@@ -7,15 +7,15 @@ from typing import TYPE_CHECKING, Self, TypedDict
 
 import requests
 
-# TODO(GideonBear): contribute upstream  # noqa: FIX002
+# TODO(GideonBear): contribute upstream  # ruff:ignore[line-contains-todo]
 from catbox_api import catboxAPI  # type: ignore[import-not-found]
 
-# TODO(GideonBear): contribute upstream  # noqa: FIX002
+# TODO(GideonBear): contribute upstream  # ruff:ignore[line-contains-todo]
 from webtoon_api import WebtoonApi  # type: ignore[import-not-found]
 
 
 if TYPE_CHECKING:
-    # TODO(GideonBear): contribute upstream  # noqa: FIX002
+    # TODO(GideonBear): contribute upstream  # ruff:ignore[line-contains-todo]
     from webtoon_api.webtoon_api import WebtoonApiCall  # type: ignore[import-not-found]
 
 
@@ -86,7 +86,7 @@ class Comic:
             file_id = catboxAPI(catbox_hash).upload_file("img.jpeg", r.raw)
             if " " in file_id or not file_id.endswith(".jpeg"):
                 msg = f"Catbox upload likely failed. Got ID: {file_id}"
-                raise Exception(msg)  # noqa: TRY002
+                raise Exception(msg)  # ruff:ignore[raise-vanilla-class]
         return f"https://files.catbox.moe/{file_id}"
 
     @property
