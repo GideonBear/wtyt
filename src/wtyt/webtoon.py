@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import html
 import urllib.parse
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
@@ -69,7 +70,7 @@ class Comic:
 
     @property
     def title(self) -> str:
-        return self._data["title"]
+        return html.unescape(self._data["title"])
 
     def store_thumb(self, catbox_hash: str) -> str:
         with requests.get(
