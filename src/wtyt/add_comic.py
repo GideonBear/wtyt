@@ -27,6 +27,7 @@ class Args(argparse.Namespace):
 def parse_args() -> Args:
     parser = ArgumentParser()
     parser.add_argument("link", type=str)
+    parser.add_argument("--image", action="store_true")
     # group = parser.add_mutually_exclusive_group(required=True)
     # group.add_argument(
     #     "-c", "--completed", action="store_const", dest="status",
@@ -55,10 +56,16 @@ def main() -> int:
     args = parse_args()
 
     comic = Comic.get(ComicId.from_link(args.link))
+
+    image_url = comic.store_thumb(CATBOX_HASH)
+    if args.image:
+        print(image_url)
+        return 0
+
     ytapi.create(
         media_type=MediaType.Comic,
         title=comic.title,
-        image_url=comic.store_thumb(CATBOX_HASH),
+        image_url=image_url,
         status=Status.Planning,
         notes=make_notes({"link": comic.link, "rss": comic.rss}),
     )
