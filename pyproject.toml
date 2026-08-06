@@ -28,6 +28,7 @@ dependencies = [
 urls.bugs = "https://github.com/GideonBear/wtyt/issues"
 urls.homepage = "https://github.com/GideonBear/wtyt"
 scripts.wtyt-add-comic = "wtyt.add_comic:main"
+scripts.wtyt-find = "wtyt.find:main"
 scripts.wtyt-get-rss = "wtyt.get_rss:main"
 
 [dependency-groups]
