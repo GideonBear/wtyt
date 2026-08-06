@@ -11,12 +11,6 @@ from wtyt.yamtrack import MediaType, Status
 
 
 ytapi = yamtrack.Api(config.yamtrack_url)
-CATBOX_HASH = (
-    subprocess
-    .run(("rbw", "get", "catbox hash"), check=True, stdout=subprocess.PIPE)
-    .stdout.decode()
-    .strip()
-)
 
 
 class Args(argparse.Namespace):
@@ -57,7 +51,14 @@ def main() -> int:
 
     comic = Comic.get(ComicId.from_link(args.link))
 
-    image_url = comic.store_thumb(CATBOX_HASH)
+    catbox_hash = (
+        subprocess
+        .run(("rbw", "get", "catbox hash"), check=True, stdout=subprocess.PIPE)
+        .stdout.decode()
+        .strip()
+    )
+
+    image_url = comic.store_thumb(catbox_hash)
     if args.image:
         print(image_url)
         return 0
