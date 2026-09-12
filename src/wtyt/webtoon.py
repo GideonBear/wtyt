@@ -83,9 +83,10 @@ class Comic:
             },
             stream=True,
         ) as r:
+            ext = self._data["thumbnail"].rsplit(".", maxsplit=1)[0]
             r.raise_for_status()
-            file_id = catboxAPI(catbox_hash).upload_file("img.jpeg", r.raw)
-            if " " in file_id or not file_id.endswith(".jpeg"):
+            file_id = catboxAPI(catbox_hash).upload_file(f"img.{ext}", r.raw)
+            if " " in file_id or not file_id.endswith(f".{ext}"):
                 msg = f"Catbox upload likely failed. Got ID: {file_id}"
                 raise Exception(msg)  # ruff:ignore[raise-vanilla-class]
         return f"https://files.catbox.moe/{file_id}"
